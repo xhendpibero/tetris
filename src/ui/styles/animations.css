@@ -1,0 +1,352 @@
+/* Line Clear Animations */
+@keyframes lineClearFlash {
+  0% { background-color: var(--color-text-primary); }
+  50% { background-color: var(--color-primary-accent); }
+  100% { background-color: var(--color-text-primary); }
+}
+
+@keyframes lineClearRemove {
+  0% { 
+    opacity: 1; 
+    transform: scaleY(1); 
+  }
+  100% { 
+    opacity: 0; 
+    transform: scaleY(0); 
+  }
+}
+
+.line-clearing {
+  animation: lineClearFlash 0.15s ease-in-out, 
+             lineClearRemove 0.15s ease-in-out 0.15s forwards;
+}
+
+/* Piece Drop Animations */
+@keyframes pieceLand {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
+}
+
+.piece-landed {
+  animation: pieceLand 0.2s ease-out;
+}
+
+/* Score Update Animations */
+@keyframes scoreGlow {
+  0% { 
+    transform: scale(1); 
+    text-shadow: 0 0 5px currentColor; 
+  }
+  50% { 
+    transform: scale(1.1); 
+    text-shadow: 0 0 20px currentColor, 0 0 30px currentColor; 
+  }
+  100% { 
+    transform: scale(1); 
+    text-shadow: 0 0 5px currentColor; 
+  }
+}
+
+.score-updated {
+  animation: scoreGlow 0.5s ease-in-out;
+}
+
+/* Level Up Animation */
+@keyframes levelUp {
+  0% { 
+    background-color: transparent; 
+  }
+  25% { 
+    background-color: rgba(0, 240, 240, 0.2); 
+  }
+  50% { 
+    background-color: rgba(0, 240, 240, 0.4); 
+  }
+  75% { 
+    background-color: rgba(0, 240, 240, 0.2); 
+  }
+  100% { 
+    background-color: transparent; 
+  }
+}
+
+.level-up-flash {
+  animation: levelUp 1s ease-in-out;
+}
+
+/* Combo Notification */
+@keyframes comboPopup {
+  0% { 
+    opacity: 0; 
+    transform: translateY(20px) scale(0.8); 
+  }
+  50% { 
+    opacity: 1; 
+    transform: translateY(-10px) scale(1.2); 
+  }
+  100% { 
+    opacity: 0; 
+    transform: translateY(-30px) scale(1); 
+  }
+}
+
+.combo-notification {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: var(--font-size-score-label);
+  color: var(--color-primary-accent);
+  font-weight: bold;
+  text-shadow: 0 0 10px currentColor;
+  pointer-events: none;
+  z-index: var(--z-index-tooltip);
+  animation: comboPopup 2s ease-out forwards;
+}
+
+/* Tetris Celebration Animation */
+@keyframes tetrisCelebration {
+  0% { 
+    background-color: transparent; 
+  }
+  10% { 
+    background-color: rgba(240, 240, 0, 0.3); 
+  }
+  20% { 
+    background-color: rgba(0, 240, 0, 0.3); 
+  }
+  30% { 
+    background-color: rgba(240, 0, 0, 0.3); 
+  }
+  40% { 
+    background-color: rgba(0, 0, 240, 0.3); 
+  }
+  50% { 
+    background-color: rgba(240, 160, 0, 0.3); 
+  }
+  60% { 
+    background-color: rgba(160, 0, 240, 0.3); 
+  }
+  70% { 
+    background-color: rgba(0, 240, 240, 0.3); 
+  }
+  80% { 
+    background-color: rgba(240, 240, 0, 0.2); 
+  }
+  90% { 
+    background-color: rgba(0, 240, 240, 0.1); 
+  }
+  100% { 
+    background-color: transparent; 
+  }
+}
+
+.tetris-celebration {
+  animation: tetrisCelebration 1.5s ease-in-out;
+}
+
+/* Game Over Animation */
+@keyframes gameOverSlide {
+  0% { 
+    opacity: 0; 
+    transform: translateY(-100vh); 
+  }
+  60% { 
+    opacity: 1; 
+    transform: translateY(10px); 
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+.game-over-modal {
+  animation: gameOverSlide 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Pause Menu Animation */
+@keyframes pauseMenuFade {
+  0% { 
+    opacity: 0; 
+    transform: scale(0.9); 
+  }
+  100% { 
+    opacity: 1; 
+    transform: scale(1); 
+  }
+}
+
+.pause-menu {
+  animation: pauseMenuFade 0.3s ease-out;
+}
+
+/* Button Press Animation */
+@keyframes buttonPress {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+.btn-pressed {
+  animation: buttonPress 0.1s ease-out;
+}
+
+/* Loading Spinner */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.loading-spinner {
+  animation: spin 1s linear infinite;
+}
+
+/* Piece Movement Hint Animation */
+@keyframes movementHint {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-2px); }
+  75% { transform: translateX(2px); }
+  100% { transform: translateX(0); }
+}
+
+.movement-hint {
+  animation: movementHint 0.3s ease-in-out;
+}
+
+/* Ghost Piece Pulse */
+@keyframes ghostPulse {
+  0% { opacity: 0.3; }
+  50% { opacity: 0.1; }
+  100% { opacity: 0.3; }
+}
+
+.ghost-piece {
+  animation: ghostPulse 2s ease-in-out infinite;
+}
+
+/* Settings Panel Slide */
+@keyframes settingsSlide {
+  0% { 
+    opacity: 0; 
+    transform: translateX(100%); 
+  }
+  100% { 
+    opacity: 1; 
+    transform: translateX(0); 
+  }
+}
+
+.settings-panel {
+  animation: settingsSlide 0.4s ease-out;
+}
+
+/* High Score Celebration */
+@keyframes highScoreCelebration {
+  0% { 
+    color: var(--color-text-primary); 
+    text-shadow: 0 0 5px currentColor; 
+  }
+  25% { 
+    color: var(--color-warning); 
+    text-shadow: 0 0 15px currentColor, 0 0 25px currentColor; 
+  }
+  50% { 
+    color: var(--color-primary-accent); 
+    text-shadow: 0 0 20px currentColor, 0 0 35px currentColor; 
+  }
+  75% { 
+    color: var(--color-success); 
+    text-shadow: 0 0 15px currentColor, 0 0 25px currentColor; 
+  }
+  100% { 
+    color: var(--color-text-primary); 
+    text-shadow: 0 0 5px currentColor; 
+  }
+}
+
+.high-score-celebration {
+  animation: highScoreCelebration 2s ease-in-out infinite;
+}
+
+/* Touch Button Feedback */
+@keyframes touchFeedback {
+  0% { 
+    transform: scale(1); 
+    background-color: var(--color-ui-background); 
+  }
+  50% { 
+    transform: scale(0.95); 
+    background-color: var(--color-primary-accent); 
+  }
+  100% { 
+    transform: scale(1); 
+    background-color: var(--color-ui-background); 
+  }
+}
+
+.touch-button-pressed {
+  animation: touchFeedback 0.15s ease-out;
+}
+
+/* Modal Backdrop Animation */
+@keyframes backdropFade {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.modal-backdrop {
+  animation: backdropFade 0.3s ease-out;
+}
+
+/* Notification Toast */
+@keyframes toastSlide {
+  0% { 
+    opacity: 0; 
+    transform: translateY(-100%) translateX(-50%); 
+  }
+  10% { 
+    opacity: 1; 
+    transform: translateY(0) translateX(-50%); 
+  }
+  90% { 
+    opacity: 1; 
+    transform: translateY(0) translateX(-50%); 
+  }
+  100% { 
+    opacity: 0; 
+    transform: translateY(-100%) translateX(-50%); 
+  }
+}
+
+.notification-toast {
+  position: fixed;
+  top: var(--spacing-xl);
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--color-panel-background);
+  color: var(--color-text-primary);
+  padding: var(--spacing-md) var(--spacing-xl);
+  border: 2px solid var(--color-primary-accent);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-menu);
+  z-index: var(--z-index-tooltip);
+  animation: toastSlide 3s ease-out forwards;
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  .loading-spinner {
+    animation: none;
+    border-top-color: var(--color-primary-accent);
+  }
+}

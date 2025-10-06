@@ -1,0 +1,102 @@
+/* Additional CSS for placeholders and mobile components */
+
+/* Placeholder styles for development */
+.board-placeholder,
+.preview-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--color-text-secondary);
+  text-align: center;
+  border: 2px dashed var(--color-border-primary);
+  border-radius: var(--border-radius-sm);
+  background-color: rgba(58, 58, 58, 0.1);
+}
+
+.placeholder-text {
+  font-size: 14px;
+  margin-bottom: var(--spacing-xs);
+  color: var(--color-text-label);
+}
+
+.placeholder-subtext {
+  font-size: 10px;
+  color: var(--color-text-disabled);
+}
+
+/* Mobile preview sections */
+.mobile-preview-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.mobile-preview-section .panel-title {
+  font-size: 14px;
+  color: var(--color-text-label);
+}
+
+.mobile-preview-section .piece-preview {
+  width: 60px;
+  height: 60px;
+}
+
+/* Touch controls specific styling */
+.touch-controls {
+  background-color: var(--color-ui-background);
+  border: 2px solid var(--color-border-primary);
+  border-radius: var(--border-radius-none);
+  padding: var(--spacing-lg);
+}
+
+/* Hide mobile components on desktop/tablet */
+@media (min-width: 768px) {
+  .score-level-bar,
+  .next-hold-bar,
+  .touch-controls {
+    display: none;
+  }
+}
+
+/* Show mobile components only on mobile */
+@media (max-width: 767px) {
+  .left-panel,
+  .right-panel {
+    display: none;
+  }
+}
+
+/* Mobile landscape adjustments */
+@media (max-width: 767px) and (orientation: landscape) {
+  .score-level-bar {
+    display: flex;
+    justify-content: space-around;
+    padding: var(--spacing-sm);
+    font-size: 12px;
+  }
+  
+  .next-hold-bar {
+    display: none;
+  }
+  
+  .touch-controls {
+    display: none;
+  }
+  
+  .left-panel,
+  .right-panel {
+    display: flex;
+  }
+  
+  .mobile-preview-section .piece-preview {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .mobile-preview-section .panel-title {
+    font-size: 10px;
+  }
+}

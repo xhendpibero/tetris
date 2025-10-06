@@ -1,0 +1,175 @@
+/* Game Board Specific Styles */
+
+.game-board {
+  position: relative;
+  width: var(--game-board-width);
+  height: var(--game-board-height);
+  background-color: var(--color-board-background);
+  border: 3px solid var(--color-border-primary);
+  border-radius: var(--border-radius-none);
+  overflow: hidden;
+}
+
+.board-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(20, 1fr);
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: var(--z-index-base);
+}
+
+.board-cell {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.board-cell.filled {
+  background-color: transparent;
+}
+
+/* Piece block styling */
+.piece-block {
+  width: 100%;
+  height: 100%;
+  border: 2px solid var(--color-block-border);
+  border-radius: var(--border-radius-none);
+  position: relative;
+  box-shadow: 
+    inset 2px 2px 4px rgba(255, 255, 255, 0.3),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.3);
+  transition: all var(--transition-fast);
+}
+
+.piece-block.current {
+  box-shadow: 
+    inset 2px 2px 4px rgba(255, 255, 255, 0.4),
+    inset -2px -2px 4px rgba(0, 0, 0, 0.4),
+    0 0 8px rgba(255, 255, 255, 0.2);
+}
+
+.piece-block.ghost {
+  opacity: var(--color-ghost-opacity);
+  border-style: dashed;
+  border-width: 1px;
+  box-shadow: none;
+}
+
+/* Tetromino-specific colors */
+.piece-block.i { background-color: var(--color-piece-i); }
+.piece-block.o { background-color: var(--color-piece-o); }
+.piece-block.t { background-color: var(--color-piece-t); }
+.piece-block.s { background-color: var(--color-piece-s); }
+.piece-block.z { background-color: var(--color-piece-z); }
+.piece-block.j { background-color: var(--color-piece-j); }
+.piece-block.l { background-color: var(--color-piece-l); }
+
+/* Grid lines overlay */
+.grid-lines {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: var(--z-index-base);
+}
+
+.grid-line {
+  position: absolute;
+  background-color: var(--color-grid-lines);
+  opacity: 0.5;
+}
+
+.grid-line.vertical {
+  width: 1px;
+  height: 100%;
+  top: 0;
+}
+
+.grid-line.horizontal {
+  height: 1px;
+  width: 100%;
+  left: 0;
+}
+
+/* Hide grid lines when disabled */
+.game-board:not(.show-grid) .grid-lines {
+  display: none;
+}
+
+/* Line clearing animation states */
+.board-cell.line-clearing {
+  animation: lineClearFlash 0.15s ease-in-out;
+}
+
+.board-cell.line-removing {
+  animation: lineClearRemove 0.15s ease-in-out forwards;
+}
+
+/* Piece landing animation */
+.piece-block.landing {
+  animation: pieceLand 0.2s ease-out;
+}
+
+/* Board shake effect for Tetris */
+.game-board.tetris-shake {
+  animation: boardShake 0.5s ease-in-out;
+}
+
+@keyframes boardShake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
+  20%, 40%, 60%, 80% { transform: translateX(2px); }
+}
+
+/* Responsive board sizing */
+@media (max-width: 767px) {
+  .game-board {
+    width: calc(100vw - 40px);
+    max-width: var(--game-board-width);
+    height: calc((100vw - 40px) * 2);
+    max-height: var(--game-board-height);
+  }
+  
+  .piece-block {
+    border-width: 1px;
+  }
+}
+
+@media (max-width: 767px) and (orientation: landscape) {
+  .game-board {
+    height: calc(100vh - 120px);
+    width: calc((100vh - 120px) / 2);
+    max-width: none;
+    max-height: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .piece-block {
+    border-width: 3px;
+    border-color: #FFFFFF;
+  }
+  
+  .grid-line {
+    opacity: 1;
+    background-color: #FFFFFF;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .piece-block,
+  .board-cell,
+  .game-board {
+    animation: none !important;
+    transition: none !important;
+  }
+}
