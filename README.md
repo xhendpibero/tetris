@@ -47,7 +47,7 @@ The Jest run currently prints a warning about `moduleNameMapping`; gameplay test
 
 ✅ **Card 7 — Game State Management**: `gameStore` now powers the live game loop with Zustand, wiring gravity/clears/scoring into the React UI (board, previews, hold, score HUD, controls, touch buttons).
 
-⬜ **Card 8 — Keyboard Input System**: Not started.
+✅ **Card 8 — Keyboard Input System**: `InputManager` delivers DAS/ARR handling, soft/hard drop, rotations, hold, and pause/resume bindings.
 
 ⬜ **Card 9 — Touch Controls Integration**: Not started.
 
@@ -55,9 +55,9 @@ The Jest run currently prints a warning about `moduleNameMapping`; gameplay test
 
 ## Outstanding Work for a 100% Playable Game
 
-1. **Input Systems (Keyboard & DAS/ARR)**
-   - Implement `InputManager` handling key bindings, DAS (170 ms) + ARR (70 ms), soft/hard drop, rotations, pause, and hold.
-   - Provide configurable timings via settings in accordance with design docs.
+1. **Input Settings & Accessibility**
+   - Surface configurable DAS/ARR timings and alternate bindings via settings UI.
+   - Add focus management and keyboard navigation for menus and overlays.
 
 2. **Touch Controls**
    - Add mobile interaction layer (swipes, tap-to-rotate, hold-to-repeat) with haptic feedback and shared DAS/ARR logic.

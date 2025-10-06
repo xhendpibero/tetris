@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import GameLayout from './GameLayout'
 import GameTitle from './GameTitle'
 import { useGameStore } from '@/game/gameStore'
+import { InputManager } from '@/game/InputManager'
 
 const GameContainer: React.FC = () => {
   const status = useGameStore((state) => state.status)
@@ -9,10 +10,20 @@ const GameContainer: React.FC = () => {
   const tick = useGameStore((state) => state.tick)
   const resumeGame = useGameStore((state) => state.resumeGame)
   const restartGame = useGameStore((state) => state.restartGame)
+  const storeRef = useGameStore
 
   useEffect(() => {
     startGame()
   }, [startGame])
+
+  useEffect(() => {
+    const manager = new InputManager(storeRef)
+    manager.attach()
+
+    return () => {
+      manager.detach()
+    }
+  }, [storeRef])
 
   useEffect(() => {
     let frameId: number
