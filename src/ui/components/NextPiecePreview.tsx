@@ -1,11 +1,10 @@
 import React from 'react'
 import PieceRenderer from './PieceRenderer'
+import { useGameStore } from '@/game/gameStore'
 
-interface NextPiecePreviewProps {
-  nextPiece?: 'I' | 'O' | 'T' | 'S' | 'Z' | 'J' | 'L'
-}
+const NextPiecePreview: React.FC = () => {
+  const nextPiece = useGameStore((state) => state.nextQueue[0] ?? null)
 
-const NextPiecePreview: React.FC<NextPiecePreviewProps> = ({ nextPiece = 'T' }) => {
   return (
     <div className="panel">
       <div className="panel-title">NEXT</div>

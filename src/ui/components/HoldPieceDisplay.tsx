@@ -1,15 +1,11 @@
 import React from 'react'
 import PieceRenderer from './PieceRenderer'
+import { useGameStore } from '@/game/gameStore'
 
-interface HoldPieceDisplayProps {
-  holdPiece?: 'I' | 'O' | 'T' | 'S' | 'Z' | 'J' | 'L' | null
-  canHold?: boolean
-}
+const HoldPieceDisplay: React.FC = () => {
+  const holdPiece = useGameStore((state) => state.holdPiece)
+  const canHold = useGameStore((state) => state.canHold)
 
-const HoldPieceDisplay: React.FC<HoldPieceDisplayProps> = ({ 
-  holdPiece = null, 
-  canHold = true 
-}) => {
   return (
     <div className="panel">
       <div className="panel-title">HOLD</div>
