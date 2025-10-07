@@ -89,7 +89,7 @@ describe('LineClearSystem', () => {
   })
 
   test('ignores hidden rows when checking for clears', () => {
-    fillRow(board, BOARD_VISIBLE_HEIGHT, 'S', '#0f0')
+    fillRow(board, 0, 'S', '#0f0')
 
     const result = system.checkForLineClears(board)
     expect(result.hasClears).toBe(false)

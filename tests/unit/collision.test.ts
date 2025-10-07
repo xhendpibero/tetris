@@ -38,9 +38,10 @@ describe('Collision Detection', () => {
       visibleHeight: 20
     }
 
-    // Add some filled cells at the bottom of the visible area (row 19)
+    // Add some filled cells at the bottom of the visible area (last row)
+    const bottomRow = BOARD_HEIGHT - 1
     for (let col = 0; col < 5; col++) {
-      boardWithPieces.grid[19][col] = { // Row 19 is the last visible row
+      boardWithPieces.grid[bottomRow][col] = {
         filled: true,
         color: '#FF0000',
         pieceType: 'T'
@@ -78,8 +79,8 @@ describe('Collision Detection', () => {
       expect(isValidPosition(3, BOARD_HEIGHT, tShape, emptyBoard)).toBe(false)
     })
 
-    test('should detect ceiling collision', () => {
-      expect(isValidPosition(3, -1, tShape, emptyBoard)).toBe(false)
+    test('should allow spawn positions above visible area', () => {
+      expect(isValidPosition(3, -2, tShape, emptyBoard)).toBe(true)
       expect(isValidPosition(3, 0, tShape, emptyBoard)).toBe(true)
     })
   })
@@ -90,12 +91,14 @@ describe('Collision Detection', () => {
     ]
 
     test('should detect collision with existing pieces', () => {
-      expect(isValidPosition(0, 19, iShape, boardWithPieces)).toBe(false) // Row 19 has pieces
-      expect(isValidPosition(5, 19, iShape, boardWithPieces)).toBe(true) // Columns 5-8 are free
+      const filledRow = BOARD_HEIGHT - 1
+      expect(isValidPosition(0, filledRow, iShape, boardWithPieces)).toBe(false)
+      expect(isValidPosition(5, filledRow, iShape, boardWithPieces)).toBe(true)
     })
 
     test('should allow placement above existing pieces', () => {
-      expect(isValidPosition(0, 18, iShape, boardWithPieces)).toBe(true) // Above the filled row
+      const rowAbove = BOARD_HEIGHT - 2
+      expect(isValidPosition(0, rowAbove, iShape, boardWithPieces)).toBe(true)
     })
   })
 
@@ -132,8 +135,9 @@ describe('Collision Detection', () => {
     ]
 
     test('should detect board collision', () => {
-      expect(checkBoardCollision(0, 19, oShape, boardWithPieces)).toBe(true) // Row 19 has pieces
-      expect(checkBoardCollision(5, 19, oShape, boardWithPieces)).toBe(false) // Columns 5-6 are free
+      const filledRow = BOARD_HEIGHT - 1
+      expect(checkBoardCollision(0, filledRow, oShape, boardWithPieces)).toBe(true)
+      expect(checkBoardCollision(5, filledRow, oShape, boardWithPieces)).toBe(false)
     })
 
     test('should not detect collision on empty board', () => {
@@ -154,8 +158,8 @@ describe('Collision Detection', () => {
     })
 
     test('should find lowest position above existing pieces', () => {
-      const lowestY = getLowestValidPosition(0, 0, jShape, boardWithPieces)
-      expect(lowestY).toBe(17) // Should land above the filled row (19) minus piece height (2)
+      const lowestY = getLowestValidPosition(0, 2, jShape, boardWithPieces)
+      expect(lowestY).toBe(BOARD_HEIGHT - 3)
     })
 
     test('should handle starting position at bottom', () => {
@@ -190,9 +194,9 @@ describe('Collision Detection', () => {
     })
 
     test('should detect game over when spawn area is blocked', () => {
-      // Fill a cell in the spawn area (top hidden rows - indices 20 and 21)
+      // Fill a cell in the spawn area (top hidden rows - indices 0 and 1)
       const gameOverBoard = { ...emptyBoard }
-      gameOverBoard.grid[20][5] = { // Row 20 is the first spawn area row
+      gameOverBoard.grid[0][5] = {
         filled: true,
         color: '#FF0000',
         pieceType: 'I'
@@ -239,10 +243,10 @@ describe('Collision Detection', () => {
     test('should detect collision with board pieces', () => {
       // T-shape at position (0, 18) would occupy rows 18 and 19
       // Row 19 has pieces in columns 0-4, so there should be a collision
-      const info = getCollisionInfo(0, 18, tShape, boardWithPieces)
+      const info = getCollisionInfo(0, BOARD_HEIGHT - 2, tShape, boardWithPieces)
 
-      expect(info.canMoveDown).toBe(false) // Would collide with pieces at row 19
-      expect(info.boardCollision).toBe(true) // Current position overlaps with existing pieces at row 19
+      expect(info.canMoveDown).toBe(false) // Would collide with pieces at bottom row
+      expect(info.boardCollision).toBe(true) // Current position overlaps with existing pieces at bottom row
     })
   })
 
@@ -280,7 +284,7 @@ describe('Collision Detection', () => {
       expect(isValidPosition(-1, 0, singleBlock, emptyBoard)).toBe(false)
       expect(isValidPosition(BOARD_WIDTH, 0, singleBlock, emptyBoard)).toBe(false)
       expect(isValidPosition(0, BOARD_HEIGHT, singleBlock, emptyBoard)).toBe(false)
-      expect(isValidPosition(0, -1, singleBlock, emptyBoard)).toBe(false)
+      expect(isValidPosition(0, -1, singleBlock, emptyBoard)).toBe(true)
     })
   })
 })

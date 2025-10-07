@@ -80,7 +80,7 @@ export class InputManager {
     const state = this.store.getState()
     const status = state.status
 
-    if (status !== 'playing' && status !== 'lineClearing') {
+    if (status !== 'playing') {
       if (PAUSE_KEYS.has(code)) {
         this.handlePauseToggle(status)
         event.preventDefault()

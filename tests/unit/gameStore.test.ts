@@ -11,8 +11,13 @@ describe('gameStore', () => {
     resetGameStore()
   })
 
+  const startPlaying = () => {
+    useGameStore.getState().initializeGame()
+    useGameStore.getState().beginGame()
+  }
+
   test('starts a game with active piece and preview queue', () => {
-    useGameStore.getState().startGame()
+    startPlaying()
 
     const state = useGameStore.getState()
     expect(state.status).toBe('playing')
@@ -22,7 +27,7 @@ describe('gameStore', () => {
   })
 
   test('pauses and resumes gameplay', () => {
-    useGameStore.getState().startGame()
+    startPlaying()
 
     useGameStore.getState().pauseGame()
     expect(useGameStore.getState().status).toBe('paused')
@@ -32,7 +37,7 @@ describe('gameStore', () => {
   })
 
   test('holding swaps pieces and disables hold until lock', () => {
-    useGameStore.getState().startGame()
+    startPlaying()
 
     const firstType = useGameStore.getState().activePiece?.type
     expect(firstType).toBeDefined()

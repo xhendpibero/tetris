@@ -207,6 +207,76 @@
 .piece-block.l { background-color: var(--color-piece-l); }
 
 /* Modal Components */
+.game-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.92));
+  z-index: var(--z-index-overlay);
+  padding: var(--spacing-xxl);
+}
+
+.game-overlay .overlay-content {
+  background-color: rgba(12, 12, 16, 0.96);
+  border: 4px solid var(--color-primary-accent);
+  box-shadow: 0 12px 40px rgba(0, 240, 240, 0.25);
+  padding: var(--spacing-xxxl);
+  text-align: center;
+  max-width: 520px;
+  width: min(520px, 100%);
+  border-radius: var(--border-radius-none);
+  display: grid;
+  gap: var(--spacing-xl);
+}
+
+.overlay-content h2 {
+  font-size: var(--font-size-game-over);
+  color: var(--color-primary-accent);
+  letter-spacing: var(--letter-spacing-title);
+  text-transform: uppercase;
+  text-shadow: 0 0 18px rgba(0, 240, 240, 0.6);
+}
+
+.overlay-content .overlay-hints,
+.overlay-content .overlay-stats {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--spacing-md);
+  justify-items: center;
+  font-size: var(--font-size-score-value);
+}
+
+.overlay-hints li {
+  color: var(--color-text-secondary);
+}
+
+.overlay-stats {
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}
+
+.overlay-stat span {
+  display: block;
+  font-size: var(--font-size-score-label);
+  color: var(--color-text-secondary);
+  margin-bottom: var(--spacing-xs);
+}
+
+.overlay-subtext {
+  font-size: var(--font-size-body);
+  color: var(--color-text-disabled);
+}
+
+.overlay-actions {
+  display: flex;
+  gap: var(--spacing-lg);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;

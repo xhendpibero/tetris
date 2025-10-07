@@ -15,13 +15,17 @@ interface GameBoardProps {
     color: string
   } | null
   showGrid?: boolean
+  clearedRows?: number[]
+  rowOffset?: number
 }
 
 const GameBoard: React.FC<GameBoardProps> = ({
   board,
   currentPiece,
   ghostPiece,
-  showGrid = true
+  showGrid = true,
+  clearedRows = [],
+  rowOffset = 0,
 }) => {
   // Initialize empty board if none provided
   const gameBoard = board || Array(BOARD_VISIBLE_HEIGHT).fill(null).map(() =>
@@ -32,6 +36,12 @@ const GameBoard: React.FC<GameBoardProps> = ({
     const cell = gameBoard[row]?.[col]
     let cellContent = null
     let cellClass = 'board-cell'
+    const isClearingRow = clearedRows.includes(row)
+    const cellStyle: React.CSSProperties | undefined = isClearingRow
+      ? { backgroundColor: 'rgba(255,255,255,0.08)', boxShadow: '0 0 8px rgba(255,255,255,0.4)' }
+      : undefined
+
+    const boardRow = row + rowOffset
 
     // Check if this position has a filled cell
     if (cell?.filled) {
@@ -44,11 +54,15 @@ const GameBoard: React.FC<GameBoardProps> = ({
       )
     }
 
+    if (isClearingRow) {
+      cellClass += ' clearing'
+    }
+
     // Check if current piece occupies this position
     if (currentPiece && !cellContent) {
-      const pieceRow = row - currentPiece.position.y
+      const pieceRow = boardRow - currentPiece.position.y
       const pieceCol = col - currentPiece.position.x
-      
+
       if (
         pieceRow >= 0 && 
         pieceRow < currentPiece.shape.length &&
@@ -68,9 +82,9 @@ const GameBoard: React.FC<GameBoardProps> = ({
 
     // Check if ghost piece occupies this position (only if no other content)
     if (ghostPiece && !cellContent) {
-      const ghostRow = row - ghostPiece.position.y
+      const ghostRow = boardRow - ghostPiece.position.y
       const ghostCol = col - ghostPiece.position.x
-      
+
       if (
         ghostRow >= 0 && 
         ghostRow < ghostPiece.shape.length &&
@@ -96,6 +110,7 @@ const GameBoard: React.FC<GameBoardProps> = ({
       <div 
         key={`${row}-${col}`}
         className={cellClass}
+        style={cellStyle}
         data-row={row}
         data-col={col}
       >

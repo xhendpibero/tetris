@@ -49,7 +49,8 @@ interface GameStoreState {
   pendingClear: PendingLineClear | null
   score: ScoreState
   startingLevel: number
-  startGame: (options?: { startingLevel?: number; storage?: ScoreStorageAdapter }) => void
+  initializeGame: (options?: { startingLevel?: number; storage?: ScoreStorageAdapter }) => void
+  beginGame: () => void
   pauseGame: () => void
   resumeGame: () => void
   restartGame: () => void
@@ -181,7 +182,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   score: defaultScoreState(runtime.startingLevel),
   startingLevel: runtime.startingLevel,
 
-  startGame: (options) => {
+  initializeGame: (options) => {
     const startingLevel = options?.startingLevel ?? runtime.startingLevel
     const storage = options?.storage
 
@@ -207,7 +208,7 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
     runtime.gravity = new GravitySystem(runtime.board, piece, { level: runtime.score.getState().level })
 
     set({
-      status: 'playing',
+      status: 'menu',
       holdPiece: null,
       canHold: true,
       nextQueue: ensurePreviewQueue(),
@@ -215,6 +216,15 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
       startingLevel,
     })
 
+    syncState(set)
+  },
+
+  beginGame: () => {
+    if (!runtime.gravity || !runtime.score) {
+      return
+    }
+
+    set({ status: 'playing', canHold: true, pendingClear: null })
     syncState(set)
   },
 
@@ -233,7 +243,8 @@ export const useGameStore = create<GameStoreState>((set, get) => ({
   restartGame: () => {
     const currentStorage = runtime.storage
     const startingLevel = runtime.startingLevel
-    get().startGame({ startingLevel, storage: currentStorage })
+    get().initializeGame({ startingLevel, storage: currentStorage })
+    get().beginGame()
   },
 
   tick: (deltaMs) => {

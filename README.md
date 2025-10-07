@@ -49,9 +49,9 @@ The Jest run currently prints a warning about `moduleNameMapping`; gameplay test
 
 ✅ **Card 8 — Keyboard Input System**: `InputManager` delivers DAS/ARR handling, soft/hard drop, rotations, hold, and pause/resume bindings.
 
-⬜ **Card 9 — Touch Controls Integration**: Not started.
+✅ **Card 9 — Touch Controls Integration**: Touch HUD supports hold-to-repeat, haptic feed, swipe gestures for movement/drops, and tap-to-rotate.
 
-⬜ **Card 10 — UI-Game State Integration**: Not started.
+🟡 **Card 10 — UI-Game State Integration**: Core HUD/board wiring complete with line-clear effects and input gating; animation polish still pending.
 
 ## Outstanding Work for a 100% Playable Game
 
@@ -59,12 +59,13 @@ The Jest run currently prints a warning about `moduleNameMapping`; gameplay test
    - Surface configurable DAS/ARR timings and alternate bindings via settings UI.
    - Add focus management and keyboard navigation for menus and overlays.
 
-2. **Touch Controls**
-   - Add mobile interaction layer (swipes, tap-to-rotate, hold-to-repeat) with haptic feedback and shared DAS/ARR logic.
+2. **Touch Controls Polish**
+   - Tune gesture thresholds per device class and expose toggles for haptics/feedback.
+   - Layer in optional drag-to-position aids and animation polish for mobile HUD.
 
 3. **UI & Animation Polish**
-   - Animate line clear flashes using `pendingClear` metadata and pause input during effects.
-   - Add overlays for countdowns, level-ups, and ensure responsive layout states stay synced with gameplay.
+   - Refine line clear effects (timing curves, block fade) and add level-up/ready overlays.
+   - Ensure layout breakpoints and animation states remain consistent across device sizes.
 
 4. **Audio & FX Hooks**
    - Trigger existing sfx assets on line clears, drops, moves, level-ups, and game state changes.

@@ -27,11 +27,11 @@ describe('Piece', () => {
       const piece = Piece.spawn('T', board)
       expect(piece.getRotation()).toBe(0)
       expect(piece.getShape()).toBeDefined()
-      expect(piece.getPosition()).toEqual({ x: 3, y: 20 })
+      expect(piece.getPosition()).toEqual({ x: 3, y: 0 })
     })
 
     test('should throw when spawn position is blocked', () => {
-      board.grid[21][3] = {
+      board.grid[0][4] = {
         filled: true,
         color: '#000',
         pieceType: 'I',
@@ -109,7 +109,7 @@ describe('Piece', () => {
     test('should hard drop to the lowest valid position', () => {
       const piece = createPiece('S', { position: { x: 3, y: 10 } })
 
-      board.grid[18][4] = {
+      board.grid[BOARD_HEIGHT - 4][4] = {
         filled: true,
         color: '#0f0',
         pieceType: 'Z',

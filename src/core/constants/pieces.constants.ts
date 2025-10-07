@@ -210,43 +210,43 @@ export const PIECE_DEFINITIONS: Record<PieceType, PieceDefinition> = {
     type: 'I',
     color: PIECE_COLORS.I,
     shapes: I_SHAPES,
-    spawnPosition: { x: 3, y: 20 }, // Centered, top hidden row
+    spawnPosition: { x: 3, y: 0 }, // Centered in spawn zone
   },
   O: {
     type: 'O',
     color: PIECE_COLORS.O,
     shapes: O_SHAPES,
-    spawnPosition: { x: 4, y: 20 }, // Centered
+    spawnPosition: { x: 4, y: 0 }, // Centered
   },
   T: {
     type: 'T',
     color: PIECE_COLORS.T,
     shapes: T_SHAPES,
-    spawnPosition: { x: 3, y: 20 }, // Centered
+    spawnPosition: { x: 3, y: 0 }, // Centered
   },
   S: {
     type: 'S',
     color: PIECE_COLORS.S,
     shapes: S_SHAPES,
-    spawnPosition: { x: 3, y: 20 }, // Centered
+    spawnPosition: { x: 3, y: 0 }, // Centered
   },
   Z: {
     type: 'Z',
     color: PIECE_COLORS.Z,
     shapes: Z_SHAPES,
-    spawnPosition: { x: 3, y: 20 }, // Centered
+    spawnPosition: { x: 3, y: 0 }, // Centered
   },
   J: {
     type: 'J',
     color: PIECE_COLORS.J,
     shapes: J_SHAPES,
-    spawnPosition: { x: 3, y: 20 }, // Centered
+    spawnPosition: { x: 3, y: 0 }, // Centered
   },
   L: {
     type: 'L',
     color: PIECE_COLORS.L,
     shapes: L_SHAPES,
-    spawnPosition: { x: 3, y: 20 }, // Centered
+    spawnPosition: { x: 3, y: 0 }, // Centered
   },
 }
 

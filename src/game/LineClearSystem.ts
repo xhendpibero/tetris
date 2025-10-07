@@ -44,7 +44,9 @@ export class LineClearSystem {
     const clearedLines: number[] = []
     const cellsToClear: Position[] = []
 
-    for (let row = 0; row < board.visibleHeight; row++) {
+    const startRow = board.height - board.visibleHeight
+
+    for (let row = startRow; row < board.height; row++) {
       const isComplete = board.grid[row].every((cell) => cell?.filled)
 
       if (isComplete) {

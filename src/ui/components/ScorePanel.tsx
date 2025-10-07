@@ -1,12 +1,19 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useGameStore } from '@/game/gameStore'
-import { formatScore } from '@/core/constants'
+import { formatScore, LINES_PER_LEVEL } from '@/core/constants'
 
 const ScorePanel: React.FC = () => {
   const scoreState = useGameStore((state) => state.score)
+  const startingLevel = useGameStore((state) => state.startingLevel)
 
   const formattedScore = formatScore(scoreState.score)
   const formattedHighScore = formatScore(scoreState.highScore)
+
+  const linesToNext = useMemo(() => {
+    const totalLines = scoreState.totalLines
+    const remainder = totalLines % LINES_PER_LEVEL
+    return remainder === 0 ? LINES_PER_LEVEL : LINES_PER_LEVEL - remainder
+  }, [scoreState.totalLines])
 
   return (
     <div className="panel">
@@ -24,6 +31,10 @@ const ScorePanel: React.FC = () => {
           <div className="stat-item">
             <div className="stat-label">LINES</div>
             <div className="stat-value">{scoreState.totalLines}</div>
+          </div>
+          <div className="stat-item">
+            <div className="stat-label">NEXT LVL</div>
+            <div className="stat-value">{linesToNext}</div>
           </div>
         </div>
         

@@ -19,16 +19,12 @@ export const isValidPosition = (
           return false // Wall collision
         }
 
-        if (boardY < 0) {
-          return false // Ceiling collision (above visible area)
-        }
-
         if (boardY >= BOARD_HEIGHT) {
           return false // Floor collision
         }
 
         // Check board collision (existing pieces)
-        if (board.grid[boardY] && board.grid[boardY][boardX]) {
+        if (boardY >= 0 && board.grid[boardY] && board.grid[boardY][boardX]) {
           const cell = board.grid[boardY][boardX]
           if (cell && cell.filled) {
             return false // Collision with existing piece
@@ -174,11 +170,10 @@ export const getPieceRightmostX = (x: number, shape: boolean[][]): number => {
 }
 
 export const isGameOver = (board: BoardState): boolean => {
-  // Check if any cells in the top hidden rows (spawn area) are filled
-  // The spawn area is the top 2 rows (indices 20 and 21 in a 22-row board)
-  const spawnAreaStartRow = board.visibleHeight // Row 20
-  
-  for (let row = spawnAreaStartRow; row < board.height; row++) {
+  // Spawn area lives in the hidden rows above the visible playfield
+  const hiddenRows = board.height - board.visibleHeight
+
+  for (let row = 0; row < hiddenRows; row++) {
     for (let col = 0; col < board.width; col++) {
       const cell = board.grid[row]?.[col]
       if (cell && cell.filled) {
